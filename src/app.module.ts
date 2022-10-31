@@ -1,10 +1,10 @@
-import { join } from 'path';
-import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { join } from 'path';
 import { ItemsModule } from './items/items.module';
 
 @Module({
@@ -23,7 +23,7 @@ import { ItemsModule } from './items/items.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [],
+      autoLoadEntities: true,
       synchronize: process.env.STATE === 'dev',
     }),
     ItemsModule,
