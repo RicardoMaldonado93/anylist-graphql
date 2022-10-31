@@ -18,7 +18,6 @@ export class CreateItemInput {
   name: string;
 
   @Field(() => Float)
-  @IsDecimal()
   @Min(0)
   quantity: number;
 
