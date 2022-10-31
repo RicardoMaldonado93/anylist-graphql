@@ -14,7 +14,7 @@ export class CreateItemInput {
   @Field(() => String)
   @IsNotEmpty()
   @IsString()
-  @MinLength(4)
+  @MinLength(2)
   name: string;
 
   @Field(() => Float)
