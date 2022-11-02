@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { join } from 'path';
 import { ItemsModule } from './items/items.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ItemsModule } from './items/items.module';
       synchronize: process.env.STATE === 'dev',
     }),
     ItemsModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],
