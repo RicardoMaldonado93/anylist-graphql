@@ -12,6 +12,7 @@ import { User } from './entities/user.entity';
 
 import * as bcrypt from 'bcrypt';
 import { NotFoundException } from '@nestjs/common';
+import { ValidRoles } from 'src/auth/enums/valid-roles.enums';
 
 @Injectable()
 export class UsersService {
@@ -32,8 +33,14 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<User[]> {
-    return [];
+  async findAll(roles: ValidRoles[]): Promise<User[]> {
+    if (roles.length === 0) return this.userRepository.find();
+
+    return this.userRepository
+      .createQueryBuilder()
+      .andWhere('ARRAY[roles] @> :roles')
+      .setParameter('roles', roles)
+      .getMany();
   }
 
   async findOneByEmail(email: string): Promise<User> {
@@ -52,12 +59,29 @@ export class UsersService {
     }
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserInput: UpdateUserInput, updateBy: User): Promise<User> {
+    try {
+      const user = await this.userRepository.preload({ id });
+
+      const updatedUser: User = {
+        ...user,
+        ...updateUserInput,
+        lastUpdateBy: updateBy,
+      };
+
+      return await this.userRepository.save(updatedUser);
+    } catch (error) {
+      this.handleDBErrors(error);
+    }
   }
 
-  async deactivate(id: string): Promise<User> {
-    throw new Error('Not implemented');
+  async deactivate(id: string, user: User): Promise<User> {
+    const userToBlock = await this.userRepository.findOneById(id);
+
+    userToBlock.isActive = false;
+    userToBlock.lastUpdateBy = user;
+
+    return await this.userRepository.save(userToBlock);
   }
 
   private handleDBErrors(error: any): never {
