@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     ConfigModule.forRoot(),
 
+    /**
     GraphQLModule.forRootAsync({
       driver: ApolloDriver,
       imports: [AuthModule],
@@ -32,14 +33,13 @@ import { AuthModule } from './auth/auth.module';
         },
       }),
     }),
-    /**
+    */
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: false,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       plugins: [ApolloServerPluginLandingPageLocalDefault],
     }),
-     */
 
     TypeOrmModule.forRoot({
       type: 'postgres',
