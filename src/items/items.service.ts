@@ -46,4 +46,8 @@ export class ItemsService {
     await this.itemsRepository.remove(item);
     return { ...item, id, user };
   }
+
+  async itemsCountByUser(user: User): Promise<number> {
+    return this.itemsRepository.count({ where: { user: { id: user.id } } });
+  }
 }
