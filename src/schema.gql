@@ -48,6 +48,9 @@ type Mutation {
   deactivateUser(id: ID!): User!
   signup(signupInput: SignupInput!): AuthResponse!
   login(loginInput: LoginInput!): AuthResponse!
+
+  """Prefill the BD with data"""
+  executeSeed: Boolean!
 }
 
 input CreateItemInput {

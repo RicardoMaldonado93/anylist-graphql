@@ -32,3 +32,5 @@
    ```text
    http://localhost:3000/graphql
    ```
+
+6. Execute the Seed mutation to prefill the DB
