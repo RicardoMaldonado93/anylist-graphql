@@ -29,7 +29,7 @@
     "@nestjs/jwt": "^10.0.2",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
-    "apollo-server-core": "^3.10.3",
+    "apollo-server-core": "^3.12.1",
     "apollo-server-express": "^3.10.3",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
